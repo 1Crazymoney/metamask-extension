@@ -308,6 +308,7 @@ export default class SendTransactionScreen extends PersistentForm {
         onReset={() => this.props.updateSendTo('', '')}
         updateEnsResolution={this.props.updateSendEnsResolution}
         updateEnsResolutionError={this.props.updateSendEnsResolutionError}
+        selectedToken={this.props.selectedToken}
       />
     )
   }
