@@ -1,4 +1,3 @@
-/* eslint-disable indent */
 /* eslint-disable no-mixed-spaces-and-tabs */
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
@@ -35,8 +34,8 @@ export default class EnsInput extends Component {
 	  onPaste: PropTypes.func,
 	  onReset: PropTypes.func,
 	  onValidAddressTyped: PropTypes.func,
-      contact: PropTypes.object,
-      selectedToken: PropTypes.object,
+	  contact: PropTypes.object,
+	  selectedToken: PropTypes.object,
 	}
 
 	state = {
@@ -101,7 +100,7 @@ export default class EnsInput extends Component {
 	        log.error(reason)
 	        this.props.updateEnsResolutionError(reason.message)
 	      }
-        })
+	    })
 	}
 
     lookupDomain = async (domain) => {
@@ -118,12 +117,12 @@ export default class EnsInput extends Component {
 	      this.props.updateEnsResolution(address)
 	    })
 	    .catch((reason) => {
-            console.log({reason})
-            if (reason.message === 'Failed to fetch') {
-                this.props.updateEnsResolutionError('API is down at the moment, please try again later')
-            } else { this.props.updateEnsResolutionError(reason.message) }
+          console.log({reason})
+          if (reason.message === 'Failed to fetch') {
+            this.props.updateEnsResolutionError('API is down at the moment, please try again later')
+          } else { this.props.updateEnsResolutionError(reason.message) }
 	    })
-	}
+    }
 
 	onPaste = event => {
 	  event.clipboardData.items[0].getAsString(text => {
@@ -148,7 +147,7 @@ export default class EnsInput extends Component {
 	  }
 
 	  if (isValidENSAddress(input)) {
-        this.lookupDomain(input)
+	    this.lookupDomain(input)
 	    // this.lookupEnsName(input)
 	  } else if (onValidAddressTyped && isValidAddress(input)) { onValidAddressTyped(input) } else {
 	    updateEnsResolution('')
@@ -161,7 +160,7 @@ export default class EnsInput extends Component {
 	  const { className, selectedAddress } = this.props
 	  const { input } = this.state
 
-      if (selectedAddress) {
+	  if (selectedAddress) {
 	    return this.renderSelected()
 	  }
 
