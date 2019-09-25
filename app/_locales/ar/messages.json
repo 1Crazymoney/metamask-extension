@@ -814,6 +814,9 @@
   "noAddressForName": {
     "message": "لم يتم تعيين عنوان لهذا الاسم."
   },
+  "noOwnerForName": {
+    "message": "لا مالك لهذا المجال"
+  },
   "noDeposits": {
     "message": "لم يتم استلام أي ودائع"
   },

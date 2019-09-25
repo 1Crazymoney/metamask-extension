@@ -802,6 +802,9 @@
   "noAddressForName": {
     "message": "Ingen adresse indstillet for dette navn."
   },
+  "noOwnerForName": {
+    "message": "Dette domæne har ikke en ejer"
+  },
   "noDeposits": {
     "message": "Ingen modtagne indskud"
   },

@@ -818,6 +818,9 @@
   "noAddressForName": {
     "message": "לא הוגדרה כתובת עבור שם זה."
   },
+  "noOwnerForName": {
+    "message": "לתחום זה אין בעלים"
+  },
   "noDeposits": {
     "message": "לא התקבלו פיקדונות"
   },

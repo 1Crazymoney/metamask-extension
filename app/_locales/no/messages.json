@@ -811,6 +811,9 @@
   "noAddressForName": {
     "message": "Ingen adresse har blitt angitt for dette navnet. "
   },
+  "noOwnerForName": {
+    "message": "Dette domenet har ingen eier"
+  },
   "noDeposits": {
     "message": "Ingen mottatte innskudd"
   },

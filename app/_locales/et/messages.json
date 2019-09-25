@@ -811,6 +811,9 @@
   "noAddressForName": {
     "message": "Sellele nimele pole registreeritud ühtegi aadressi."
   },
+  "noOwnerForName": {
+    "message": "Sellel domeenil pole omanikku"
+  },
   "noDeposits": {
     "message": "Sissemakseid pole laekunud"
   },

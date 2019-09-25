@@ -430,6 +430,9 @@
   "noAddressForName": {
     "message": "ยังไม่มีแอดแดรสไหนตั้งในชื่อนี้"
   },
+  "noOwnerForName": {
+    "message": "โดเมนนี้ไม่มีเจ้าของ" 
+  },
   "noDeposits": {
     "message": "ไม่มีเงินฝากเข้ามา"
   },

@@ -808,6 +808,9 @@
   "noAddressForName": {
     "message": "Nu a fost configurată nicio adresă pentru acest nume."
   },
+  "noOwnerForName": {
+    "message": "acest domeniu nu are proprietar"
+  },
   "noDeposits": {
     "message": "Nicio depunere primită"
   },

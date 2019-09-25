@@ -818,6 +818,9 @@
   "noAddressForName": {
     "message": "इस नाम के लिए कोई पता सेट नहीं किया गया है"
   },
+  "noOwnerForName": {
+    "message": "इस डोमेन का कोई स्वामी नहीं है"
+  },
   "noDeposits": {
     "message": "कोई धनराशि प्राप्त नहीं हुई है"
   },

@@ -815,6 +815,9 @@
   "noAddressForName": {
     "message": "이 이름에 대해 주소가 설정되어 있지 않습니다."
   },
+  "noOwnerForName": {
+    "message": "이 도메인에는 소유자가 없습니다"
+  },
   "noDeposits": {
     "message": "입금 내역이 없습니다."
   },

@@ -814,6 +814,9 @@
   "noAddressForName": {
     "message": "Nijedna adresa nije postavljena za ovaj naziv."
   },
+  "noOwnerForName": {
+    "message": "Ova domena nema vlasnika"
+  },
   "noDeposits": {
     "message": "Nijedan polog nije primljen"
   },

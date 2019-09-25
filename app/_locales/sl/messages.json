@@ -806,6 +806,9 @@
   "noAddressForName": {
     "message": "Za to ime ni naslovov."
   },
+  "noOwnerForName": {
+    "message": "ta domena nima lastnika" 
+  },
   "noDeposits": {
     "message": "Prejetih ni nič vplačil"
   },

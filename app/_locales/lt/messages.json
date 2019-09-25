@@ -821,6 +821,9 @@
   "noAddressForName": {
     "message": "Šiam pavadinimui nenurodytas adresas."
   },
+  "noOwnerForName": {
+    "message": "Šis domenas neturi savininko"
+  },
   "noDeposits": {
     "message": "Negauta jokių indėlių"
   },

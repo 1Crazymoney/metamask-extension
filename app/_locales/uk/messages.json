@@ -821,6 +821,9 @@
   "noAddressForName": {
     "message": "На це ім'я не встановлено адреси."
   },
+  "noOwnerForName": {
+    "message": "У цього домену немає власника" 
+  },
   "noDeposits": {
     "message": "Немає отриманих внесків"
   },

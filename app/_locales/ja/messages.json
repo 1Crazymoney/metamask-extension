@@ -403,6 +403,9 @@
   "noAddressForName": {
     "message": "この名前にはアドレスが設定されていません。"
   },
+  "noOwnerForName": {
+    "message": "このドメインには所有者がいません"
+  },
   "noDeposits": {
     "message": "振込みがありません。"
   },

@@ -792,6 +792,9 @@
   "noAddressForName": {
     "message": "Tiada alamat yang ditetapkan untuk nama ini."
   },
+  "noOwnerForName": {
+    "message": "Domain ini tiada pemilik"
+  },
   "noDeposits": {
     "message": "Tiada deposit diterima"
   },

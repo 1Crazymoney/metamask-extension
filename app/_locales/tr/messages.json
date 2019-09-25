@@ -363,6 +363,9 @@
   "noAddressForName": {
     "message": "Bu isim için bir adres tanımlanmamış."
   },
+  "noOwnerForName": {
+    "message": "Bu etki alanının sahibi yok" 
+  },
   "noDeposits": {
     "message": "Yatırma alınmadı"
   },

@@ -812,6 +812,9 @@
   "noAddressForName": {
     "message": "Za ovo ime nije podešena adresa."
   },
+  "noOwnerForName": {
+    "message": "ova domena nema vlasnika" 
+  },
   "noDeposits": {
     "message": "Nisu primljeni nikakvi depoziti"
   },

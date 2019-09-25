@@ -487,6 +487,9 @@
   "noAddressForName": {
     "message": "Pa gen adrès ki etabli pou non sa a."
   },
+  "noOwnerForName": {
+    "message": "Domèn sa a pa gen okenn mèt kay"
+  },
   "noDeposits": {
     "message": "Pa gen depo ou te resevwa"
   },

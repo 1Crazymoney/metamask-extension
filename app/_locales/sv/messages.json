@@ -805,6 +805,9 @@
   "noAddressForName": {
     "message": "Inga adresser har angetts för detta namn."
   },
+  "noOwnerForName": {
+    "message": "Den här domänen har ingen ägare" 
+  },
   "noDeposits": {
     "message": "Ingen deposition mottagen"
   },

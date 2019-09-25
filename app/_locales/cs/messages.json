@@ -351,6 +351,9 @@
   "noAddressForName": {
     "message": "Pro toto jméno nebyla nastavena žádná adresa."
   },
+  "noOwnerForName": {
+    "message": "Tato doména nemá vlastníka"
+  },
   "noDeposits": {
     "message": "Žádný vklad"
   },

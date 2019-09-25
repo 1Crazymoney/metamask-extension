@@ -321,6 +321,9 @@
   "noAddressForName": {
     "message": "Er is geen adres ingesteld voor deze naam."
   },
+  "noOwnerForName": {
+    "message": "Dit domein heeft geen eigenaar"
+  },
   "noDeposits": {
     "message": "Geen aanbetalingen ontvangen"
   },

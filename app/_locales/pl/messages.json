@@ -812,6 +812,9 @@
   "noAddressForName": {
     "message": "Nie wybrano żadnego adresu dla tej nazwy."
   },
+  "noOwnerForName": {
+    "message": "Ta domena nie ma właściciela"
+  },
   "noDeposits": {
     "message": "Brak otrzymanych depozytów"
   },

@@ -367,6 +367,9 @@
   "noAddressForName": {
     "message": "Дла этого названия не установлен адрес."
   },
+  "noOwnerForName": {
+    "message": "У этого домейна нет владельца"
+  },
   "noDeposits": {
     "message": "Пополнения не получены"
   },

@@ -805,6 +805,9 @@
   "noAddressForName": {
     "message": "No existeix cap adreça amb aquest nom."
   },
+  "noOwnerForName": {
+    "message": "Aquest domini no té un propietari"
+  },
   "noDeposits": {
     "message": "Cap dipòsit rebut"
   },

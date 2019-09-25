@@ -661,6 +661,9 @@
   "noAddressForName": {
     "message": "No se ha establecido ninguna dirección para este nombre"
   },
+  "noOwnerForName": {
+    "message": "Este dominio no tiene dueño"
+  },
   "noDeposits": {
     "message": "No hay depósitos recibidos"
   },

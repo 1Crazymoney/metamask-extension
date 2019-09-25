@@ -818,6 +818,9 @@
   "noAddressForName": {
     "message": "Tälle nimelle ei ole määritetty osoitetta."
   },
+  "noOwnerForName": {
+    "message": "Tällä verkkotunnuksella ei ole omistajaa"
+  },
   "noDeposits": {
     "message": "Ei vastaanotettuja talletuksia"
   },

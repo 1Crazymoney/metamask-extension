@@ -791,6 +791,9 @@
   "noAddressForName": {
     "message": "Für den angegebene Namen wurde keine Adresse eingegeben."
   },
+  "noOwnerForName": {
+    "message": "Diese Domain hat keinen Eigentümer"
+  },
   "noDeposits": {
     "message": "Keine Einzahlung erhalten"
   },

@@ -817,6 +817,9 @@
   "noAddressForName": {
     "message": "За това име не е зададен адрес."
   },
+  "noOwnerForName": {
+    "message": "Няма собственик за този домейн"
+  },
   "noDeposits": {
     "message": "Не са получени депозити"
   },

@@ -746,6 +746,9 @@
   "noAddressForName": {
     "message": "Walang address na na-set para sa pangalang ito."
   },
+  "noOwnerForName": {
+    "message": "Tällä verkkotunnuksella ei ole omistajaa"
+  },
   "noDeposits": {
     "message": "Walang mga depositong natanggap"
   },

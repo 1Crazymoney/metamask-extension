@@ -242,6 +242,9 @@
   "noAddressForName": {
     "message": "Walang naka-set na address para sa pangalang ito."
   },
+  "noOwnerForName": {
+    "message": "ang domain na ito ay walang may-ari"
+  },
   "noDeposits": {
     "message": "Walang natanggap na mga deposito"
   },

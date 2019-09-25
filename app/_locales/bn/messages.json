@@ -821,6 +821,9 @@
   "noAddressForName": {
     "message": "এই নামের জন্য কোনো ঠিকানা সেট করা হয় নি।"
   },
+  "noOwnerForName": {
+    "message": "এই ডোমেনটির কোনও মালিক নেই"
+  },
   "noDeposits": {
     "message": "কোনো ডিপোজিট পাওয়া যায় নি"
   },

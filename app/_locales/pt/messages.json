@@ -331,6 +331,9 @@
   "noAddressForName": {
     "message": "Nenhum endereço foi estabelecido para este nome."
   },
+  "noOwnerForName": {
+    "message": "este domínio não tem dono"
+  },
   "noDeposits": {
     "message": "Sem depósitos recebidos"
   },

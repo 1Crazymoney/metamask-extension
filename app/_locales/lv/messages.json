@@ -817,6 +817,9 @@
   "noAddressForName": {
     "message": "Šim vārdam nav iestatīta adrese."
   },
+  "noOwnerForName": {
+    "message": "Šim domēnam nav īpašnieka"
+  },
   "noDeposits": {
     "message": "Nav saņemts neviens noguldījums"
   },

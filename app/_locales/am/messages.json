@@ -818,6 +818,9 @@
   "noAddressForName": {
     "message": "በዚህ ስም የተሞላ አድራሻ የለም።"
   },
+  "noOwnerForName": {
+    "message": "ለዚህ ጎራ ባለቤት የለም።"
+  },
   "noDeposits": {
     "message": "ገቢ የሆነ ተቀማጭ የለም"
   },

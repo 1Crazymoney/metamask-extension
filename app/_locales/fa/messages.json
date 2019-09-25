@@ -821,6 +821,9 @@
   "noAddressForName": {
     "message": "هیچ آدرسی برای این نام تنظیم نشده است."
   },
+  "noOwnerForName": {
+    "message": "این دامنه مالک ندارد"
+  },
   "noDeposits": {
     "message": "هیچ پرداختی دریافت نشده است"
   },

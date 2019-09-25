@@ -788,6 +788,9 @@
   "noAddressForName": {
     "message": "Aucune adresse n'a été définie pour ce nom."
   },
+  "noOwnerForName": {
+    "message": "Ce domaine n'a pas de propriétaire"
+  },
   "noDeposits": {
     "message": "Aucun dépôt reçu"
   },

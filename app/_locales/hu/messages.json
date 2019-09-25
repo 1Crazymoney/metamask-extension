@@ -814,6 +814,9 @@
   "noAddressForName": {
     "message": "Nem lett cím beállítva ehhez a névhez."
   },
+  "noOwnerForName": {
+    "message": "Ennek a domainnek nincs tulajdonosa"
+  },
   "noDeposits": {
     "message": "Nem érkezett letét"
   },

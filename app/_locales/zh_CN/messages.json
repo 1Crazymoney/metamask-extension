@@ -803,6 +803,9 @@
   "noAddressForName": {
     "message": "此 ENS 名字还没有指定地址。"
   },
+  "noOwnerForName": {
+    "message": "该域没有所有者" 
+  },
   "noDeposits": {
     "message": "没有已收的存款"
   },

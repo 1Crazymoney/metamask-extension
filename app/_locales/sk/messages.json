@@ -787,6 +787,9 @@
   "noAddressForName": {
     "message": "Pro toto jméno nebyla nastavena žádná adresa."
   },
+  "noOwnerForName": {
+    "message": "tato doména nemá vlastníka"
+  },
   "noDeposits": {
     "message": "Žádný vklad"
   },
