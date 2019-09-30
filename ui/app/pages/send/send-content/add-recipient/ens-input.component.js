@@ -1,19 +1,17 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import c from 'classnames'
-import { isValidENSAddress, isValidAddress, isValidAddressHead } from '../../../../helpers/utils/util'
+import { isValidAddress, isValidAddressHead } from '../../../../helpers/utils/util'
 import {ellipsify} from '../../send.utils'
 
 import debounce from 'debounce'
 import copyToClipboard from 'copy-to-clipboard/index'
 import ENS from 'ethjs-ens'
 import networkMap from 'ethjs-ens/lib/network-map.json'
-import log from 'loglevel'
-
+import Namicorn from 'namicorn'
 
 // Local Constants
 const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000'
-const ZERO_X_ERROR_ADDRESS = '0x'
 
 export default class EnsInput extends Component {
   static contextTypes = {
@@ -47,11 +45,12 @@ export default class EnsInput extends Component {
     const network = this.props.network
     const networkHasEnsSupport = getNetworkEnsSupport(network)
     this.setState({ ensResolution: ZERO_ADDRESS })
+    this.namicorn = new Namicorn()
 
     if (networkHasEnsSupport) {
       const provider = global.ethereumProvider
       this.ens = new ENS({ provider, network })
-      this.checkName = debounce(this.lookupEnsName, 200)
+      this.checkName = debounce(this.lookupDomain, 200)
     }
   }
 
@@ -80,23 +79,25 @@ export default class EnsInput extends Component {
     updateEnsResolutionError('')
   }
 
-  lookupEnsName = (recipient) => {
-    recipient = recipient.trim()
-
-    log.info(`ENS attempting to resolve name: ${recipient}`)
-    this.ens.lookup(recipient)
-      .then((address) => {
-        if (address === ZERO_ADDRESS) throw new Error(this.context.t('noAddressForName'))
-        if (address === ZERO_X_ERROR_ADDRESS) throw new Error(this.context.t('ensRegistrationError'))
+  lookupDomain = async (domain) => {
+    domain = domain.trim()
+    console.log('loooking up the domain')
+    console.log('selected name', this.props)
+    this.namicorn.resolve(domain)
+      .then((result) => {
+        console.log({result})
+        const address = result.addresses['ETH']
+        console.log('address ', address)
+        if (!address || address === ZERO_ADDRESS) throw new Error(this.context.t('noAddressForName'))
+        if (!result.meta.owner) throw new Error('No owner for this domain')
+        if (!address) throw new Error('No address for this currency')
         this.props.updateEnsResolution(address)
       })
       .catch((reason) => {
-        if (isValidENSAddress(recipient) && reason.message === 'ENS name not defined.') {
-          this.props.updateEnsResolutionError(this.context.t('ensNotFoundOnCurrentNetwork'))
-        } else {
-          log.error(reason)
-          this.props.updateEnsResolutionError(reason.message)
-        }
+        console.log({reason})
+        if (reason.message === 'Failed to fetch') {
+          this.props.updateEnsResolutionError('API is down at the moment, please try again later')
+        } else { this.props.updateEnsResolutionError(reason.message) }
       })
   }
 
@@ -115,20 +116,14 @@ export default class EnsInput extends Component {
 
     this.setState({ input }, () => onChange(input))
 
-    // Empty ENS state if input is empty
-    // maybe scan ENS
-
     if (!networkHasEnsSupport && !isValidAddress(input) && !isValidAddressHead(input)) {
       updateEnsResolution('')
       updateEnsResolutionError(!networkHasEnsSupport ? 'Network does not support ENS' : '')
       return
     }
-
-    if (isValidENSAddress(input)) {
-      this.lookupEnsName(input)
-    } else if (onValidAddressTyped && isValidAddress(input)) {
-      onValidAddressTyped(input)
-    } else {
+    if (this.namicorn.isSupportedDomain(input)) {
+      this.lookupDomain(input)
+    } else if (onValidAddressTyped && isValidAddress(input)) { onValidAddressTyped(input) } else {
       updateEnsResolution('')
       updateEnsResolutionError('')
     }
