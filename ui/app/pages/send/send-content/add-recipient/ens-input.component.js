@@ -32,6 +32,7 @@ export default class EnsInput extends Component {
     onReset: PropTypes.func,
     onValidAddressTyped: PropTypes.func,
     contact: PropTypes.object,
+    selectedToken: PropTypes.object,
   }
 
   state = {
@@ -44,7 +45,7 @@ export default class EnsInput extends Component {
   componentDidMount () {
     const network = this.props.network
     const networkHasEnsSupport = getNetworkEnsSupport(network)
-    this.setState({ ensResolution: ZERO_ADDRESS })
+    this.setState({ namingResolution: ZERO_ADDRESS })
     this.namicorn = new Namicorn()
 
     if (networkHasEnsSupport) {
@@ -83,8 +84,11 @@ export default class EnsInput extends Component {
     domain = domain.trim()
     this.namicorn.resolve(domain)
       .then((result) => {
-        // TODO: Need to find where the destination ticker is stored and got it here instead of 'ETH'
-        const address = result.addresses['ETH']
+        console.log('ha ha ')
+        const symbol = this.props.selectedToken ? this.props.selectedToken.symbol : null
+        console.log({symbol, selectedToken: this.props.selectedToken})
+        const address = result.addresses[symbol || 'ETH']
+        console.log({address})
         if (!address || address === ZERO_ADDRESS) throw new Error(this.context.t('noAddressForName'))
         if (!result.meta.owner) throw new Error(this.context.t('noOwnerForName'))
         this.props.updateNamingResolution(address)
@@ -118,7 +122,7 @@ export default class EnsInput extends Component {
       this.lookupDomain(input)
     } else if (onValidAddressTyped && isValidAddress(input)) { onValidAddressTyped(input) } else {
       updateNamingResolution('')
-      updateNamingResolutionError('')
+      updateNamingResolutionError(new Error(this.context.t('invalidDomain')).message)
     }
   }
 
@@ -218,7 +222,7 @@ export default class EnsInput extends Component {
   }
 
   ensIconContents () {
-    const { loadingEns, ensFailure, ensResolution, toError } = this.state || { ensResolution: ZERO_ADDRESS }
+    const { loadingEns, ensFailure, namingResolution, toError } = this.state || { namingResolution: ZERO_ADDRESS }
 
     if (toError) return
 
@@ -239,7 +243,7 @@ export default class EnsInput extends Component {
       return <i className="fa fa-warning fa-lg warning'" />
     }
 
-    if (ensResolution && (ensResolution !== ZERO_ADDRESS)) {
+    if (namingResolution && (namingResolution !== ZERO_ADDRESS)) {
       return (
         <i
           className="fa fa-check-circle fa-lg cursor-pointer"
@@ -247,7 +251,7 @@ export default class EnsInput extends Component {
           onClick={event => {
             event.preventDefault()
             event.stopPropagation()
-            copyToClipboard(ensResolution)
+            copyToClipboard(namingResolution)
           }}
         />
       )

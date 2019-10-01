@@ -873,6 +873,9 @@
   "noOwnerForName": {
     "message": "This domain has no owner"
   },
+  "invalidDomain": {
+    "message": "Invalid domain"
+  },
   "noDeposits": {
     "message": "No deposits received"
   },

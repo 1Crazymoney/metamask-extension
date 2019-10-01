@@ -48,7 +48,7 @@ export default class SendTransactionScreen extends PersistentForm {
     scanQrCode: PropTypes.func,
     qrCodeDetected: PropTypes.func,
     qrCodeData: PropTypes.object,
-    ensResolution: PropTypes.string,
+    namingResolution: PropTypes.string,
     ensResolutionError: PropTypes.string,
   }
 
@@ -308,6 +308,7 @@ export default class SendTransactionScreen extends PersistentForm {
         onReset={() => this.props.updateSendTo('', '')}
         updateNamingResolution={this.props.updateSendEnsResolution}
         updateNamingResolutionError={this.props.updateSendEnsResolutionError}
+        selectedToken={this.props.selectedToken}
       />
     )
   }
