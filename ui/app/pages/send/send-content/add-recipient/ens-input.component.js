@@ -25,9 +25,9 @@ export default class EnsInput extends Component {
     selectedName: PropTypes.string,
     onChange: PropTypes.func,
     updateSendTo: PropTypes.func,
-    updateEnsResolution: PropTypes.func,
+    updateNamingResolution: PropTypes.func,
     scanQrCode: PropTypes.func,
-    updateEnsResolutionError: PropTypes.func,
+    updateNamingResolutionError: PropTypes.func,
     onPaste: PropTypes.func,
     onReset: PropTypes.func,
     onValidAddressTyped: PropTypes.func,
@@ -72,32 +72,25 @@ export default class EnsInput extends Component {
   }
 
   resetInput = () => {
-    const { updateEnsResolution, updateEnsResolutionError, onReset } = this.props
+    const { updateNamingResolution, updateNamingResolutionError, onReset } = this.props
     this.onChange({ target: { value: '' } })
     onReset()
-    updateEnsResolution('')
-    updateEnsResolutionError('')
+    updateNamingResolution('')
+    updateNamingResolutionError('')
   }
 
   lookupDomain = async (domain) => {
     domain = domain.trim()
-    console.log('loooking up the domain')
-    console.log('selected name', this.props)
     this.namicorn.resolve(domain)
       .then((result) => {
-        console.log({result})
+        // TODO: Need to find where the destination ticker is stored and got it here instead of 'ETH'
         const address = result.addresses['ETH']
-        console.log('address ', address)
         if (!address || address === ZERO_ADDRESS) throw new Error(this.context.t('noAddressForName'))
-        if (!result.meta.owner) throw new Error('No owner for this domain')
-        if (!address) throw new Error('No address for this currency')
-        this.props.updateEnsResolution(address)
+        if (!result.meta.owner) throw new Error(this.context.t('noOwnerForName'))
+        this.props.updateNamingResolution(address)
       })
       .catch((reason) => {
-        console.log({reason})
-        if (reason.message === 'Failed to fetch') {
-          this.props.updateEnsResolutionError('API is down at the moment, please try again later')
-        } else { this.props.updateEnsResolutionError(reason.message) }
+        this.props.updateNamingResolutionError(reason.message)
       })
   }
 
@@ -110,22 +103,22 @@ export default class EnsInput extends Component {
   }
 
   onChange = e => {
-    const { network, onChange, updateEnsResolution, updateEnsResolutionError, onValidAddressTyped } = this.props
+    const { network, onChange, updateNamingResolution, updateNamingResolutionError, onValidAddressTyped } = this.props
     const input = e.target.value
     const networkHasEnsSupport = getNetworkEnsSupport(network)
 
     this.setState({ input }, () => onChange(input))
 
     if (!networkHasEnsSupport && !isValidAddress(input) && !isValidAddressHead(input)) {
-      updateEnsResolution('')
-      updateEnsResolutionError(!networkHasEnsSupport ? 'Network does not support ENS' : '')
+      updateNamingResolution('')
+      updateNamingResolutionError(!networkHasEnsSupport ? 'Network does not support ENS' : '')
       return
     }
     if (this.namicorn.isSupportedDomain(input)) {
       this.lookupDomain(input)
     } else if (onValidAddressTyped && isValidAddress(input)) { onValidAddressTyped(input) } else {
-      updateEnsResolution('')
-      updateEnsResolutionError('')
+      updateNamingResolution('')
+      updateNamingResolutionError('')
     }
   }
 

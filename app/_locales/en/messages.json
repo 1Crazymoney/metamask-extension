@@ -870,6 +870,9 @@
   "noAddressForName": {
     "message": "No address has been set for this name."
   },
+  "noOwnerForName": {
+    "message": "This domain has no owner"
+  },
   "noDeposits": {
     "message": "No deposits received"
   },

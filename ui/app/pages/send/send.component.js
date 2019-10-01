@@ -306,8 +306,8 @@ export default class SendTransactionScreen extends PersistentForm {
         onValidAddressTyped={(address) => this.props.updateSendTo(address, '')}
         onPaste={text => this.props.updateSendTo(text)}
         onReset={() => this.props.updateSendTo('', '')}
-        updateEnsResolution={this.props.updateSendEnsResolution}
-        updateEnsResolutionError={this.props.updateSendEnsResolutionError}
+        updateNamingResolution={this.props.updateSendEnsResolution}
+        updateNamingResolutionError={this.props.updateSendEnsResolutionError}
       />
     )
   }

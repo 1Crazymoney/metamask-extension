@@ -67,10 +67,10 @@ export default class AddContact extends PureComponent {
         onChange={this.dValidate}
         onPaste={text => this.setState({ ethAddress: text })}
         onReset={() => this.setState({ ethAddress: '', ensAddress: '' })}
-        updateEnsResolution={address => {
+        updateNamingResolution={address => {
           this.setState({ ensAddress: address, error: '', ensError: '' })
         }}
-        updateEnsResolutionError={message => this.setState({ ensError: message })}
+        updateNamingResolutionError={message => this.setState({ ensError: message })}
       />
     )
   }
