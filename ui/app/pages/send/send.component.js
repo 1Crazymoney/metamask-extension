@@ -13,7 +13,7 @@ import SendHeader from './send-header'
 import AddRecipient from './send-content/add-recipient'
 import SendContent from './send-content'
 import SendFooter from './send-footer'
-import EnsInput from './send-content/add-recipient/ens-input'
+import NamingInput from './send-content/add-recipient/naming-input'
 
 
 export default class SendTransactionScreen extends PersistentForm {
@@ -290,7 +290,7 @@ export default class SendTransactionScreen extends PersistentForm {
 
   renderInput () {
     return (
-      <EnsInput
+      <NamingInput
         className="send__to-row"
         scanQrCode={_ => {
           this.context.metricsEvent({

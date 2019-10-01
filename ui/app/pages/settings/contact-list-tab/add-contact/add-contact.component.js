@@ -4,7 +4,7 @@ import Identicon from '../../../../components/ui/identicon'
 import TextField from '../../../../components/ui/text-field'
 import { CONTACT_LIST_ROUTE } from '../../../../helpers/constants/routes'
 import { isValidAddress, isValidENSAddress } from '../../../../helpers/utils/util'
-import EnsInput from '../../../../pages/send/send-content/add-recipient/ens-input'
+import NamingInput from '../../../../pages/send/send-content/add-recipient/naming-input'
 import PageContainerFooter from '../../../../components/ui/page-container/page-container-footer'
 import debounce from 'lodash.debounce'
 
@@ -61,7 +61,7 @@ export default class AddContact extends PureComponent {
 
   renderInput () {
     return (
-      <EnsInput
+      <NamingInput
         className="send__to-row"
         scanQrCode={_ => { this.props.scanQrCode() }}
         onChange={this.dValidate}

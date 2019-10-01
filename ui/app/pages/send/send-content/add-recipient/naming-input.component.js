@@ -13,7 +13,7 @@ import Namicorn from 'namicorn'
 // Local Constants
 const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000'
 
-export default class EnsInput extends Component {
+export default class NamingInput extends Component {
   static contextTypes = {
     t: PropTypes.func,
   }
@@ -84,11 +84,8 @@ export default class EnsInput extends Component {
     domain = domain.trim()
     this.namicorn.resolve(domain)
       .then((result) => {
-        console.log('ha ha ')
         const symbol = this.props.selectedToken ? this.props.selectedToken.symbol : null
-        console.log({symbol, selectedToken: this.props.selectedToken})
         const address = result.addresses[symbol || 'ETH']
-        console.log({address})
         if (!address || address === ZERO_ADDRESS) throw new Error(this.context.t('noAddressForName'))
         if (!result.meta.owner) throw new Error(this.context.t('noOwnerForName'))
         this.props.updateNamingResolution(address)
