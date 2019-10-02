@@ -3,9 +3,10 @@ import PropTypes from 'prop-types'
 import Identicon from '../../../../components/ui/identicon'
 import TextField from '../../../../components/ui/text-field'
 import { CONTACT_LIST_ROUTE } from '../../../../helpers/constants/routes'
-import { isValidAddress, isValidENSAddress } from '../../../../helpers/utils/util'
+import { isValidAddress } from '../../../../helpers/utils/util'
 import NamingInput from '../../../../pages/send/send-content/add-recipient/naming-input'
 import PageContainerFooter from '../../../../components/ui/page-container/page-container-footer'
+import Namicorn from 'namicorn'
 import debounce from 'lodash.debounce'
 
 export default class AddContact extends PureComponent {
@@ -33,6 +34,7 @@ export default class AddContact extends PureComponent {
   constructor (props) {
     super(props)
     this.dValidate = debounce(this.validate, 1000)
+    this.namicorn = new Namicorn()
   }
 
   componentWillReceiveProps (nextProps) {
@@ -51,8 +53,8 @@ export default class AddContact extends PureComponent {
 
   validate = address => {
     const valid = isValidAddress(address)
-    const validEnsAddress = isValidENSAddress(address)
-    if (valid || validEnsAddress || address === '') {
+    const validEnsDomain = this.namicorn.isSupportedDomain(address)
+    if (valid || validEnsDomain || address === '') {
       this.setState({ error: '', ethAddress: address })
     } else {
       this.setState({ error: 'Invalid Address' })

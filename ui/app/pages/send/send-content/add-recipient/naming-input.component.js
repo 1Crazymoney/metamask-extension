@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import c from 'classnames'
-import { isValidAddress, isValidAddressHead } from '../../../../helpers/utils/util'
+import { isValidAddress } from '../../../../helpers/utils/util'
 import {ellipsify} from '../../send.utils'
 
 import debounce from 'debounce'
@@ -30,7 +30,6 @@ export default class NamingInput extends Component {
     updateNamingResolutionError: PropTypes.func,
     onPaste: PropTypes.func,
     onReset: PropTypes.func,
-    onValidAddressTyped: PropTypes.func,
     contact: PropTypes.object,
     selectedToken: PropTypes.object,
   }
@@ -104,22 +103,25 @@ export default class NamingInput extends Component {
   }
 
   onChange = e => {
-    const { network, onChange, updateNamingResolution, updateNamingResolutionError, onValidAddressTyped } = this.props
+    const { network, onChange, updateNamingResolution, updateNamingResolutionError } = this.props
     const input = e.target.value
-    const networkHasEnsSupport = getNetworkEnsSupport(network)
 
     this.setState({ input }, () => onChange(input))
-
-    if (!networkHasEnsSupport && !isValidAddress(input) && !isValidAddressHead(input)) {
+    if (input === '') {
       updateNamingResolution('')
-      updateNamingResolutionError(!networkHasEnsSupport ? 'Network does not support ENS' : '')
+      updateNamingResolutionError('')
+      return
+    }
+    if (!this.namicorn.ens.isSupportedNetwork(network)) {
+      updateNamingResolution('')
+      updateNamingResolutionError(this.context.t('noNetworkSupport'))
       return
     }
     if (this.namicorn.isSupportedDomain(input)) {
       this.lookupDomain(input)
-    } else if (onValidAddressTyped && isValidAddress(input)) { onValidAddressTyped(input) } else {
+    } else {
       updateNamingResolution('')
-      updateNamingResolutionError(new Error(this.context.t('invalidDomain')).message)
+      updateNamingResolutionError(this.context.t('invalidDomain'))
     }
   }
 

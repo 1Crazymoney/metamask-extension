@@ -5,7 +5,7 @@ import { compose } from 'recompose'
 const {
   getSelectedAddress,
 } = require('../../selectors/selectors')
-
+import Namicorn from 'namicorn'
 import {
   getAmountConversionRate,
   getBlockGasLimit,
@@ -54,9 +54,6 @@ import {
 import {
   calcGasTotal,
 } from './send.utils.js'
-import {
-  isValidENSAddress,
-} from '../../helpers/utils/util'
 
 import {
   SEND_ROUTE,
@@ -98,6 +95,8 @@ function mapStateToProps (state) {
 }
 
 function mapDispatchToProps (dispatch) {
+  const namicorn = new Namicorn()
+
   return {
     updateAndSetGasLimit: ({
       blockGasLimit,
@@ -131,7 +130,7 @@ function mapDispatchToProps (dispatch) {
     updateSendEnsResolution: (namingResolution) => dispatch(updateSendEnsResolution(namingResolution)),
     updateSendEnsResolutionError: (message) => dispatch(updateSendEnsResolutionError(message)),
     updateToNicknameIfNecessary: (to, toNickname, addressBook) => {
-      if (isValidENSAddress(toNickname)) {
+      if (namicorn.isSupportedDomain(toNickname)) {
         const addressBookEntry = addressBook.find(({ address}) => to === address) || {}
         if (!addressBookEntry.name !== toNickname) {
           dispatch(updateSendTo(to, addressBookEntry.name || ''))
