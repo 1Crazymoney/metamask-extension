@@ -84,7 +84,7 @@ function mapStateToProps (state) {
     selectedAddress: getSelectedAddress(state),
     selectedToken: getSelectedToken(state),
     showHexData: getSendHexDataFeatureFlagState(state),
-    ensResolution: getSendEnsResolution(state),
+    namingResolution: getSendEnsResolution(state),
     ensResolutionError: getSendEnsResolutionError(state),
     to: getSendTo(state),
     toNickname: getSendToNickname(state),
@@ -128,7 +128,7 @@ function mapDispatchToProps (dispatch) {
     qrCodeDetected: (data) => dispatch(qrCodeDetected(data)),
     updateSendTo: (to, nickname) => dispatch(updateSendTo(to, nickname)),
     fetchBasicGasEstimates: () => dispatch(fetchBasicGasEstimates()),
-    updateSendEnsResolution: (ensResolution) => dispatch(updateSendEnsResolution(ensResolution)),
+    updateSendEnsResolution: (namingResolution) => dispatch(updateSendEnsResolution(namingResolution)),
     updateSendEnsResolutionError: (message) => dispatch(updateSendEnsResolutionError(message)),
     updateToNicknameIfNecessary: (to, toNickname, addressBook) => {
       if (isValidENSAddress(toNickname)) {
