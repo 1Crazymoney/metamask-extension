@@ -876,9 +876,12 @@
   "invalidDomain": {
     "message": "Invalid domain"
   },
+<<<<<<< HEAD
   "noNetworkSupport":{
     "message": "Network doesn't support ENS"
   },
+=======
+>>>>>>> 496556af0480a24a972d58cad2e5b3e9ef681861
   "noDeposits": {
     "message": "No deposits received"
   },
