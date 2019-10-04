@@ -105,15 +105,13 @@ export default class NamingInput extends Component {
       updateNamingResolutionError('')
       return
     }
-    // sending ETH if selectedToken is null
-    if (!this.props.selectedToken) {
-      if (this.namicorn.isSupportedDomainInNetwork(input)) {
-        this.lookupDomain(input)
-      } else {
-        updateNamingResolution('')
-        updateNamingResolutionError(this.context.t('noNetworkSupport'))
-      }
-    } else if (this.namicorn.isSupportedDomain(input)) { this.lookupDomain(input) } else {
+    if (this.namicorn.isSupportedDomainInNetwork(input)) {
+      this.lookupDomain(input)
+    } else if (this.namicorn.isSupportedDomain(input)) {
+      updateNamingResolution('')
+      updateNamingResolutionError(this.context.t('noNetworkSupport'))
+    } else {
+      updateNamingResolution('')
       updateNamingResolutionError(this.context.t('invalidDomain'))
     }
   }
