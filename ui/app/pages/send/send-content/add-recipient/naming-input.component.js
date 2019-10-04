@@ -3,12 +3,9 @@ import PropTypes from 'prop-types'
 import c from 'classnames'
 import { isValidAddress } from '../../../../helpers/utils/util'
 import {ellipsify} from '../../send.utils'
-
+import Namicorn from 'namicorn'
 import debounce from 'debounce'
 import copyToClipboard from 'copy-to-clipboard/index'
-import ENS from 'ethjs-ens'
-import networkMap from 'ethjs-ens/lib/network-map.json'
-import Namicorn from 'namicorn'
 
 // Local Constants
 const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000'
@@ -43,15 +40,12 @@ export default class NamingInput extends Component {
 
   componentDidMount () {
     const network = this.props.network
-    const networkHasEnsSupport = getNetworkEnsSupport(network)
+    this.namicorn = new Namicorn({blockchain: {ens: {network: parseInt(network)}, zns: true}})
+    const networkHasEnsSupport = this.namicorn.ens.isSupportedNetwork()
     this.setState({ namingResolution: ZERO_ADDRESS })
-    this.namicorn = new Namicorn()
 
-    if (networkHasEnsSupport) {
-      const provider = global.ethereumProvider
-      this.ens = new ENS({ provider, network })
-      this.checkName = debounce(this.lookupDomain, 200)
-    }
+    if (networkHasEnsSupport) { this.checkName = debounce(this.lookupDomain, 200) }
+
   }
 
   // If an address is sent without a nickname, meaning not from ENS or from
@@ -65,8 +59,7 @@ export default class NamingInput extends Component {
     } = this.props
 
     if (prevProps.network !== network) {
-      const provider = global.ethereumProvider
-      this.ens = new ENS({ provider, network })
+      this.namicorn = new Namicorn({blockchain: {ens: {network: parseInt(network)}, zns: true}})
       this.onChange({ target: { value: input } })
     }
   }
@@ -103,7 +96,7 @@ export default class NamingInput extends Component {
   }
 
   onChange = e => {
-    const { network, onChange, updateNamingResolution, updateNamingResolutionError } = this.props
+    const { onChange, updateNamingResolution, updateNamingResolutionError } = this.props
     const input = e.target.value
 
     this.setState({ input }, () => onChange(input))
@@ -112,7 +105,7 @@ export default class NamingInput extends Component {
       updateNamingResolutionError('')
       return
     }
-    if (!this.namicorn.ens.isSupportedNetwork(network)) {
+    if (!this.namicorn.ens.isSupportedNetwork()) {
       updateNamingResolution('')
       updateNamingResolutionError(this.context.t('noNetworkSupport'))
       return
@@ -256,8 +249,4 @@ export default class NamingInput extends Component {
       )
     }
   }
-}
-
-function getNetworkEnsSupport (network) {
-  return Boolean(networkMap[network])
 }

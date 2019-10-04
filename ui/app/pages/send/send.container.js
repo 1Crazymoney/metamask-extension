@@ -64,7 +64,10 @@ module.exports = compose(
   connect(mapStateToProps, mapDispatchToProps)
 )(SendEther)
 
+let namicorn
+
 function mapStateToProps (state) {
+  namicorn = new Namicorn({blockchain: {ens: {network: parseInt(getCurrentNetwork(state))}, zns: true}})
   return {
     amount: getSendAmount(state),
     amountConversionRate: getAmountConversionRate(state),
@@ -95,7 +98,6 @@ function mapStateToProps (state) {
 }
 
 function mapDispatchToProps (dispatch) {
-  const namicorn = new Namicorn()
 
   return {
     updateAndSetGasLimit: ({

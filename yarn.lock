@@ -2591,9 +2591,9 @@
   integrity sha512-fh+pAqt4xRzPfqA6eh3Z2y6fyZavRIumvjhaCL753+TVkGKGhpPeyrJG2JftD0T9q4GF00KjefsQ+PQNDdWQaQ==
 
 "@types/node@^10.1.0":
-  version "10.14.19"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-10.14.19.tgz#f52742c7834a815dedf66edfc8a51547e2a67342"
-  integrity sha512-j6Sqt38ssdMKutXBUuAcmWF8QtHW1Fwz/mz4Y+Wd9mzpBiVFirjpNQf363hG5itkG+yGaD+oiLyb50HxJ36l9Q==
+  version "10.14.20"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-10.14.20.tgz#c4378d9d6a62faa5c9aafffc3d726b5a1e7367c6"
+  integrity sha512-An+MXSV8CGXz/BO9C1KKsoJ/8WDrvlNUaRMsm2h+IHZuSyQkM8U5bJJkb8ItLKA73VePG/nUK+t+EuW2IWuhsQ==
 
 "@types/node@^10.3.2":
   version "10.14.14"
@@ -18743,10 +18743,10 @@ mz@^2.6.0:
     object-assign "^4.0.1"
     thenify-all "^1.0.0"
 
-namicorn@^0.2.34:
-  version "0.2.34"
-  resolved "https://registry.yarnpkg.com/namicorn/-/namicorn-0.2.34.tgz#93f9af4de4f5cfa971a675af49a4f8f02c6d346f"
-  integrity sha512-50bXrNHculkuXHXYXrSxJeerBBpYPVa3XxWJb6fy0lxuJ8Un3PQp4P8IJZdxe7IY+W+TnYUNdTmMm8WPdMXdVQ==
+namicorn@^0.2.35:
+  version "0.2.35"
+  resolved "https://registry.yarnpkg.com/namicorn/-/namicorn-0.2.35.tgz#1c007b8c5b6e57ace6cbdaafc55c1294d48d1c4d"
+  integrity sha512-FLQX0jFuQRGNhuMQ3ahoBeFyM9c5Ge1TPV7DZAo02cVOMqpL5/1HwaIXHD/dCjkDdzRuAfzF7nTl8O5ArtabvQ==
   dependencies:
     "@zilliqa-js/zilliqa" "0.8.0-alpha.0"
     eth-ens-namehash "^2.0.8"

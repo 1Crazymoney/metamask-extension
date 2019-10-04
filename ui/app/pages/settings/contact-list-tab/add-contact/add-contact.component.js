@@ -21,6 +21,7 @@ export default class AddContact extends PureComponent {
     scanQrCode: PropTypes.func,
     qrCodeData: PropTypes.object,
     qrCodeDetected: PropTypes.func,
+    network: PropTypes.number,
   }
 
   state = {
@@ -34,7 +35,8 @@ export default class AddContact extends PureComponent {
   constructor (props) {
     super(props)
     this.dValidate = debounce(this.validate, 1000)
-    this.namicorn = new Namicorn()
+    this.namicorn = new Namicorn({blockchain: {ens: {network: parseInt(props.network)}, zns: true}})
+
   }
 
   componentWillReceiveProps (nextProps) {
@@ -48,6 +50,9 @@ export default class AddContact extends PureComponent {
           this.props.qrCodeDetected(null)
         }
       }
+    }
+    if (this.props.network !== nextProps.network) {
+      this.namicorn = new Namicorn({blockchain: {ens: {network: parseInt(nextProps.network)}, zns: true}})
     }
   }
 
