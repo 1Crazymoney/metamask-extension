@@ -105,18 +105,12 @@ export default class NamingInput extends Component {
       updateNamingResolutionError('')
       return
     }
-    if (!this.namicorn.ens.isSupportedNetwork()) {
+    if (this.namicorn.isSupportedDomainInNetwork(input)) { this.lookupDomain(input) } else if (!this.namicorn.ens.isSupportedNetwork()) {
       updateNamingResolution('')
       updateNamingResolutionError(this.context.t('noNetworkSupport'))
-      return
-    }
-    if (this.namicorn.isSupportedDomain(input)) {
-      this.lookupDomain(input)
-    } else {
-      updateNamingResolution('')
-      updateNamingResolutionError(this.context.t('invalidDomain'))
-    }
+    } else { updateNamingResolutionError(this.context.t('invalidDomain')) }
   }
+
 
   render () {
     const { t } = this.context

@@ -37,8 +37,6 @@ module.exports = {
   miniAddressSummary: miniAddressSummary,
   isAllOneCase: isAllOneCase,
   isValidAddress: isValidAddress,
-  isValidENSAddress,
-  // getNamicorn,
   numericBalance: numericBalance,
   parseBalance: parseBalance,
   formatBalance: formatBalance,
@@ -101,10 +99,6 @@ function isValidAddress (address) {
   return (isAllOneCase(prefixed) && ethUtil.isValidAddress(prefixed)) || ethUtil.isValidChecksumAddress(prefixed)
 }
 
-function isValidENSAddress (address) {
-  return address.match(/^.{7,}\.(eth|test)$/)
-}
-
 function isInvalidChecksumAddress (address) {
   var prefixed = ethUtil.addHexPrefix(address)
   if (address === '0x0000000000000000000000000000000000000000') return false
@@ -117,10 +111,6 @@ function isAllOneCase (address) {
   var upper = address.toUpperCase()
   return address === lower || address === upper
 }
-
-// function getNamicorn () {
-//   return new Namicorn({ens: {network: global.ehtereumProvider.chainId, url: global.ethereumProvider.rpcTarget}, zns: true})
-// }
 
 // Takes wei Hex, returns wei BN, even if input is null
 function numericBalance (balance) {

@@ -18743,10 +18743,10 @@ mz@^2.6.0:
     object-assign "^4.0.1"
     thenify-all "^1.0.0"
 
-namicorn@^0.2.35:
-  version "0.2.35"
-  resolved "https://registry.yarnpkg.com/namicorn/-/namicorn-0.2.35.tgz#1c007b8c5b6e57ace6cbdaafc55c1294d48d1c4d"
-  integrity sha512-FLQX0jFuQRGNhuMQ3ahoBeFyM9c5Ge1TPV7DZAo02cVOMqpL5/1HwaIXHD/dCjkDdzRuAfzF7nTl8O5ArtabvQ==
+namicorn@^0.2.36:
+  version "0.2.36"
+  resolved "https://registry.yarnpkg.com/namicorn/-/namicorn-0.2.36.tgz#a96a7ebaf74e9bb02ddc0a6e8a154497b5e798e4"
+  integrity sha512-yFt8vVFaTtmIg2DSx7FGPX+o85fhusW5pbiA6AYEPF0FovxQPeTtvzn9GaOQ0zHybLPFxLYi0cZQuc675vFZYQ==
   dependencies:
     "@zilliqa-js/zilliqa" "0.8.0-alpha.0"
     eth-ens-namehash "^2.0.8"
