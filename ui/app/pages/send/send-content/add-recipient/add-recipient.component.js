@@ -17,7 +17,7 @@ export default class AddRecipient extends Component {
     addressBook: PropTypes.array,
     updateGas: PropTypes.func,
     updateSendTo: PropTypes.func,
-    namingResolution: PropTypes.string,
+    ensResolution: PropTypes.string,
     toError: PropTypes.string,
     toWarning: PropTypes.string,
     ensResolutionError: PropTypes.string,
@@ -101,15 +101,15 @@ export default class AddRecipient extends Component {
   }
 
   render () {
-    const { namingResolution, query, addressBookEntryName } = this.props
+    const { ensResolution, query, addressBookEntryName } = this.props
     const { isShowingTransfer } = this.state
 
     let content
 
     if (isValidAddress(query)) {
       content = this.renderExplicitAddress(query)
-    } else if (namingResolution) {
-      content = this.renderExplicitAddress(namingResolution, addressBookEntryName || query)
+    } else if (ensResolution) {
+      content = this.renderExplicitAddress(ensResolution, addressBookEntryName || query)
     } else if (isShowingTransfer) {
       content = this.renderTransfer()
     }
@@ -196,7 +196,7 @@ export default class AddRecipient extends Component {
   }
 
   renderDialogs () {
-    const { toError, toWarning, ensResolutionError, namingResolution } = this.props
+    const { toError, toWarning, ensResolutionError, ensResolution } = this.props
     const { t } = this.context
     const contacts = this.searchForContacts()
     const recents = this.searchForRecents()
@@ -216,7 +216,7 @@ export default class AddRecipient extends Component {
       )
     }
 
-    if (toError && toError !== 'required' && !namingResolution) {
+    if (toError && toError !== 'required' && !ensResolution) {
       return (
         <Dialog
           type="error"

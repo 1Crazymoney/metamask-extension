@@ -8,13 +8,11 @@ import {
 } from '../../../../helpers/constants/routes'
 import {
   getQrCodeData,
-  getCurrentNetwork,
 } from '../../../../pages/send/send.selectors'
 
 const mapStateToProps = state => {
   return {
     qrCodeData: getQrCodeData(state),
-    network: getCurrentNetwork(state),
   }
 }
 

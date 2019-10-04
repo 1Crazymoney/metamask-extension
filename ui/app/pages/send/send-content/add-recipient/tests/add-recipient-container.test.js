@@ -37,7 +37,7 @@ describe('add-recipient container', () => {
       assert.deepEqual(mapStateToProps('mockState'), {
         addressBook: [{ name: 'mockAddressBook:mockState' }],
         contacts: [{ name: 'mockAddressBook:mockState' }],
-        namingResolution: 'mockSendEnsResolution:mockState',
+        ensResolution: 'mockSendEnsResolution:mockState',
         ensResolutionError: 'mockSendEnsResolutionError:mockState',
         ownedAccounts: 'mockAccountsWithSendEtherInfoSelector:mockState',
         addressBookEntryName: undefined,

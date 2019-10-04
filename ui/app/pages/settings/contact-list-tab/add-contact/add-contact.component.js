@@ -3,10 +3,9 @@ import PropTypes from 'prop-types'
 import Identicon from '../../../../components/ui/identicon'
 import TextField from '../../../../components/ui/text-field'
 import { CONTACT_LIST_ROUTE } from '../../../../helpers/constants/routes'
-import { isValidAddress } from '../../../../helpers/utils/util'
-import NamingInput from '../../../../pages/send/send-content/add-recipient/naming-input'
+import { isValidAddress, isValidENSAddress } from '../../../../helpers/utils/util'
+import EnsInput from '../../../../pages/send/send-content/add-recipient/ens-input'
 import PageContainerFooter from '../../../../components/ui/page-container/page-container-footer'
-import Namicorn from 'namicorn'
 import debounce from 'lodash.debounce'
 
 export default class AddContact extends PureComponent {
@@ -21,7 +20,6 @@ export default class AddContact extends PureComponent {
     scanQrCode: PropTypes.func,
     qrCodeData: PropTypes.object,
     qrCodeDetected: PropTypes.func,
-    network: PropTypes.number,
   }
 
   state = {
@@ -35,8 +33,6 @@ export default class AddContact extends PureComponent {
   constructor (props) {
     super(props)
     this.dValidate = debounce(this.validate, 1000)
-    this.namicorn = new Namicorn({blockchain: {ens: {network: parseInt(props.network)}, zns: true}})
-
   }
 
   componentWillReceiveProps (nextProps) {
@@ -51,15 +47,12 @@ export default class AddContact extends PureComponent {
         }
       }
     }
-    if (this.props.network !== nextProps.network) {
-      this.namicorn = new Namicorn({blockchain: {ens: {network: parseInt(nextProps.network)}, zns: true}})
-    }
   }
 
   validate = address => {
     const valid = isValidAddress(address)
-    const validEnsDomain = this.namicorn.isSupportedDomain(address)
-    if (valid || validEnsDomain || address === '') {
+    const validEnsAddress = isValidENSAddress(address)
+    if (valid || validEnsAddress || address === '') {
       this.setState({ error: '', ethAddress: address })
     } else {
       this.setState({ error: 'Invalid Address' })
@@ -68,16 +61,16 @@ export default class AddContact extends PureComponent {
 
   renderInput () {
     return (
-      <NamingInput
+      <EnsInput
         className="send__to-row"
         scanQrCode={_ => { this.props.scanQrCode() }}
         onChange={this.dValidate}
         onPaste={text => this.setState({ ethAddress: text })}
         onReset={() => this.setState({ ethAddress: '', ensAddress: '' })}
-        updateNamingResolution={address => {
+        updateEnsResolution={address => {
           this.setState({ ensAddress: address, error: '', ensError: '' })
         }}
-        updateNamingResolutionError={message => this.setState({ ensError: message })}
+        updateEnsResolutionError={message => this.setState({ ensError: message })}
       />
     )
   }

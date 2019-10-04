@@ -16,11 +16,11 @@ import AddRecipient from './add-recipient.component'
 export default connect(mapStateToProps, mapDispatchToProps)(AddRecipient)
 
 function mapStateToProps (state) {
-  const namingResolution = getSendEnsResolution(state)
+  const ensResolution = getSendEnsResolution(state)
 
   let addressBookEntryName = ''
-  if (namingResolution) {
-    const addressBookEntry = getAddressBookEntry(state, namingResolution) || {}
+  if (ensResolution) {
+    const addressBookEntry = getAddressBookEntry(state, ensResolution) || {}
     addressBookEntryName = addressBookEntry.name
   }
 
@@ -29,7 +29,7 @@ function mapStateToProps (state) {
   return {
     ownedAccounts: accountsWithSendEtherInfoSelector(state),
     addressBook,
-    namingResolution,
+    ensResolution,
     addressBookEntryName,
     ensResolutionError: getSendEnsResolutionError(state),
     contacts: addressBook.filter(({ name }) => !!name),
