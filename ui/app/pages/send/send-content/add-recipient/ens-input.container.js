@@ -1,4 +1,4 @@
-import NamingInput from './naming-input.component'
+import EnsInput from './ens-input.component'
 import {
   getCurrentNetwork,
   getSendTo,
@@ -20,4 +20,4 @@ export default connect(
       contact: getAddressBookEntry(state, selectedAddress),
     }
   }
-)(NamingInput)
+)(EnsInput)

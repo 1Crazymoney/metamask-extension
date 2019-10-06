@@ -176,7 +176,7 @@ describe('AddRecipient Component', function () {
       wrapper.setProps({
         addressBook: [],
         toError: 'bad',
-        namingResolution: '0x128',
+        ensResolution: '0x128',
       })
 
       const dialog = wrapper.find(Dialog)

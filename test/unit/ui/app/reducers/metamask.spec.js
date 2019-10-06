@@ -309,7 +309,7 @@ describe('MetaMask Reducers', () => {
       errors: {},
       editingTransactionId: 22,
       forceGasMin: '0xGas',
-      namingResolution: null,
+      ensResolution: null,
       ensResolutionError: '',
     }
 
@@ -495,13 +495,13 @@ describe('MetaMask Reducers', () => {
     assert.deepEqual(state.pendingTokens, {})
   })
 
-  it('update namingResolution', () => {
+  it('update ensResolution', () => {
     const state = reduceMetamask({}, {
       type: actions.UPDATE_SEND_ENS_RESOLUTION,
       payload: '0x1337',
     })
 
-    assert.deepEqual(state.send.namingResolution, '0x1337')
+    assert.deepEqual(state.send.ensResolution, '0x1337')
     assert.deepEqual(state.send.ensResolutionError, '')
   })
 
@@ -512,6 +512,6 @@ describe('MetaMask Reducers', () => {
     })
 
     assert.deepEqual(state.send.ensResolutionError, 'ens name not found')
-    assert.deepEqual(state.send.namingResolution, null)
+    assert.deepEqual(state.send.ensResolution, null)
   })
 })

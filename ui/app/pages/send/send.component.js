@@ -13,7 +13,7 @@ import SendHeader from './send-header'
 import AddRecipient from './send-content/add-recipient'
 import SendContent from './send-content'
 import SendFooter from './send-footer'
-import NamingInput from './send-content/add-recipient/naming-input'
+import EnsInput from './send-content/add-recipient/ens-input'
 
 
 export default class SendTransactionScreen extends PersistentForm {
@@ -48,7 +48,7 @@ export default class SendTransactionScreen extends PersistentForm {
     scanQrCode: PropTypes.func,
     qrCodeDetected: PropTypes.func,
     qrCodeData: PropTypes.object,
-    namingResolution: PropTypes.string,
+    ensResolution: PropTypes.string,
     ensResolutionError: PropTypes.string,
   }
 
@@ -290,7 +290,7 @@ export default class SendTransactionScreen extends PersistentForm {
 
   renderInput () {
     return (
-      <NamingInput
+      <EnsInput
         className="send__to-row"
         scanQrCode={_ => {
           this.context.metricsEvent({
@@ -303,11 +303,11 @@ export default class SendTransactionScreen extends PersistentForm {
           this.props.scanQrCode()
         }}
         onChange={this.onRecipientInputChange}
+        onValidAddressTyped={(address) => this.props.updateSendTo(address, '')}
         onPaste={text => this.props.updateSendTo(text)}
         onReset={() => this.props.updateSendTo('', '')}
-        updateNamingResolution={this.props.updateSendEnsResolution}
-        updateNamingResolutionError={this.props.updateSendEnsResolutionError}
-        selectedToken={this.props.selectedToken}
+        updateEnsResolution={this.props.updateSendEnsResolution}
+        updateEnsResolutionError={this.props.updateSendEnsResolutionError}
       />
     )
   }

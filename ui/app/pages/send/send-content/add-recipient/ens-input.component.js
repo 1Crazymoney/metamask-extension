@@ -1,16 +1,21 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import c from 'classnames'
-import { isValidAddress } from '../../../../helpers/utils/util'
+import { isValidENSAddress, isValidAddress, isValidAddressHead } from '../../../../helpers/utils/util'
 import {ellipsify} from '../../send.utils'
-import Namicorn from 'namicorn'
+
 import debounce from 'debounce'
 import copyToClipboard from 'copy-to-clipboard/index'
+import ENS from 'ethjs-ens'
+import networkMap from 'ethjs-ens/lib/network-map.json'
+import log from 'loglevel'
+
 
 // Local Constants
 const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000'
+const ZERO_X_ERROR_ADDRESS = '0x'
 
-export default class NamingInput extends Component {
+export default class EnsInput extends Component {
   static contextTypes = {
     t: PropTypes.func,
   }
@@ -22,13 +27,13 @@ export default class NamingInput extends Component {
     selectedName: PropTypes.string,
     onChange: PropTypes.func,
     updateSendTo: PropTypes.func,
-    updateNamingResolution: PropTypes.func,
+    updateEnsResolution: PropTypes.func,
     scanQrCode: PropTypes.func,
-    updateNamingResolutionError: PropTypes.func,
+    updateEnsResolutionError: PropTypes.func,
     onPaste: PropTypes.func,
     onReset: PropTypes.func,
+    onValidAddressTyped: PropTypes.func,
     contact: PropTypes.object,
-    selectedToken: PropTypes.object,
   }
 
   state = {
@@ -40,12 +45,14 @@ export default class NamingInput extends Component {
 
   componentDidMount () {
     const network = this.props.network
-    this.namicorn = new Namicorn({blockchain: {ens: {network: parseInt(network)}, zns: true}})
-    const networkHasEnsSupport = this.namicorn.ens.isSupportedNetwork()
-    this.setState({ namingResolution: ZERO_ADDRESS })
+    const networkHasEnsSupport = getNetworkEnsSupport(network)
+    this.setState({ ensResolution: ZERO_ADDRESS })
 
-    if (networkHasEnsSupport) { this.checkName = debounce(this.lookupDomain, 200) }
-
+    if (networkHasEnsSupport) {
+      const provider = global.ethereumProvider
+      this.ens = new ENS({ provider, network })
+      this.checkName = debounce(this.lookupEnsName, 200)
+    }
   }
 
   // If an address is sent without a nickname, meaning not from ENS or from
@@ -59,31 +66,37 @@ export default class NamingInput extends Component {
     } = this.props
 
     if (prevProps.network !== network) {
-      this.namicorn = new Namicorn({blockchain: {ens: {network: parseInt(network)}, zns: true}})
+      const provider = global.ethereumProvider
+      this.ens = new ENS({ provider, network })
       this.onChange({ target: { value: input } })
     }
   }
 
   resetInput = () => {
-    const { updateNamingResolution, updateNamingResolutionError, onReset } = this.props
+    const { updateEnsResolution, updateEnsResolutionError, onReset } = this.props
     this.onChange({ target: { value: '' } })
     onReset()
-    updateNamingResolution('')
-    updateNamingResolutionError('')
+    updateEnsResolution('')
+    updateEnsResolutionError('')
   }
 
-  lookupDomain = async (domain) => {
-    domain = domain.trim()
-    this.namicorn.resolve(domain)
-      .then((result) => {
-        const symbol = this.props.selectedToken ? this.props.selectedToken.symbol : null
-        const address = result.addresses[symbol || 'ETH']
-        if (!address || address === ZERO_ADDRESS) throw new Error(this.context.t('noAddressForName'))
-        if (!result.meta.owner) throw new Error(this.context.t('noOwnerForName'))
-        this.props.updateNamingResolution(address)
+  lookupEnsName = (recipient) => {
+    recipient = recipient.trim()
+
+    log.info(`ENS attempting to resolve name: ${recipient}`)
+    this.ens.lookup(recipient)
+      .then((address) => {
+        if (address === ZERO_ADDRESS) throw new Error(this.context.t('noAddressForName'))
+        if (address === ZERO_X_ERROR_ADDRESS) throw new Error(this.context.t('ensRegistrationError'))
+        this.props.updateEnsResolution(address)
       })
       .catch((reason) => {
-        this.props.updateNamingResolutionError(reason.message)
+        if (isValidENSAddress(recipient) && reason.message === 'ENS name not defined.') {
+          this.props.updateEnsResolutionError(this.context.t('ensNotFoundOnCurrentNetwork'))
+        } else {
+          log.error(reason)
+          this.props.updateEnsResolutionError(reason.message)
+        }
       })
   }
 
@@ -96,26 +109,30 @@ export default class NamingInput extends Component {
   }
 
   onChange = e => {
-    const { onChange, updateNamingResolution, updateNamingResolutionError } = this.props
+    const { network, onChange, updateEnsResolution, updateEnsResolutionError, onValidAddressTyped } = this.props
     const input = e.target.value
+    const networkHasEnsSupport = getNetworkEnsSupport(network)
 
     this.setState({ input }, () => onChange(input))
-    if (input === '') {
-      updateNamingResolution('')
-      updateNamingResolutionError('')
+
+    // Empty ENS state if input is empty
+    // maybe scan ENS
+
+    if (!networkHasEnsSupport && !isValidAddress(input) && !isValidAddressHead(input)) {
+      updateEnsResolution('')
+      updateEnsResolutionError(!networkHasEnsSupport ? 'Network does not support ENS' : '')
       return
     }
-    if (this.namicorn.isSupportedDomainInNetwork(input)) {
-      this.lookupDomain(input)
-    } else if (this.namicorn.isSupportedDomain(input)) {
-      updateNamingResolution('')
-      updateNamingResolutionError(this.context.t('noNetworkSupport'))
+
+    if (isValidENSAddress(input)) {
+      this.lookupEnsName(input)
+    } else if (onValidAddressTyped && isValidAddress(input)) {
+      onValidAddressTyped(input)
     } else {
-      updateNamingResolution('')
-      updateNamingResolutionError(this.context.t('invalidDomain'))
+      updateEnsResolution('')
+      updateEnsResolutionError('')
     }
   }
-
 
   render () {
     const { t } = this.context
@@ -213,7 +230,7 @@ export default class NamingInput extends Component {
   }
 
   ensIconContents () {
-    const { loadingEns, ensFailure, namingResolution, toError } = this.state || { namingResolution: ZERO_ADDRESS }
+    const { loadingEns, ensFailure, ensResolution, toError } = this.state || { ensResolution: ZERO_ADDRESS }
 
     if (toError) return
 
@@ -234,7 +251,7 @@ export default class NamingInput extends Component {
       return <i className="fa fa-warning fa-lg warning'" />
     }
 
-    if (namingResolution && (namingResolution !== ZERO_ADDRESS)) {
+    if (ensResolution && (ensResolution !== ZERO_ADDRESS)) {
       return (
         <i
           className="fa fa-check-circle fa-lg cursor-pointer"
@@ -242,10 +259,14 @@ export default class NamingInput extends Component {
           onClick={event => {
             event.preventDefault()
             event.stopPropagation()
-            copyToClipboard(namingResolution)
+            copyToClipboard(ensResolution)
           }}
         />
       )
     }
   }
+}
+
+function getNetworkEnsSupport (network) {
+  return Boolean(networkMap[network])
 }
