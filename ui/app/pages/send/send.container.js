@@ -5,7 +5,6 @@ import { compose } from 'recompose'
 const {
   getSelectedAddress,
 } = require('../../selectors/selectors')
-import Namicorn from 'namicorn'
 import {
   getAmountConversionRate,
   getBlockGasLimit,
@@ -130,6 +129,7 @@ function mapDispatchToProps (dispatch) {
     updateSendEnsResolution: (namingResolution) => dispatch(updateSendEnsResolution(namingResolution)),
     updateSendEnsResolutionError: (message) => dispatch(updateSendEnsResolutionError(message)),
     updateToNicknameIfNecessary: (to, toNickname, addressBook, network) => {
+      const Namicorn = require('namicorn')
       const namicorn = new Namicorn({blockchain: {ens: {network}, zns: true}})
       if (namicorn.isSupportedDomain(toNickname)) {
         const addressBookEntry = addressBook.find(({ address}) => to === address) || {}
