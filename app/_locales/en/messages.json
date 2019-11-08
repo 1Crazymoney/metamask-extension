@@ -735,6 +735,9 @@
   "logout": {
     "message": "Log out"
   },
+  "logoutTimeTooGreat": {
+    "message": "Logout time is too great"
+  },
   "mainnet": {
     "message": "Main Ethereum Network"
   },
@@ -1441,6 +1444,9 @@
   },
   "viewOnEtherscan": {
     "message": "View on Etherscan"
+  },
+  "retryTransaction": {
+    "message": "Retry Transaction"
   },
   "visitWebSite": {
     "message": "Visit our web site"

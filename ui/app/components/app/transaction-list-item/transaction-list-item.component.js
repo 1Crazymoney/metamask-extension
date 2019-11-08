@@ -24,7 +24,7 @@ export default class TransactionListItem extends PureComponent {
     showCancelModal: PropTypes.func,
     showCancel: PropTypes.bool,
     hasEnoughCancelGas: PropTypes.bool,
-    showRetry: PropTypes.bool,
+    showSpeedUp: PropTypes.bool,
     isEarliestNonce: PropTypes.bool,
     showFiat: PropTypes.bool,
     token: PropTypes.object,
@@ -113,6 +113,14 @@ export default class TransactionListItem extends PureComponent {
 
     const retryId = id || initialTransactionId
 
+    this.context.metricsEvent({
+      eventOpts: {
+        category: 'Navigation',
+        action: 'Activity Log',
+        name: 'Clicked "Speed Up"',
+      },
+    })
+
     return fetchBasicGasAndTimeEstimates()
       .then(basicEstimates => fetchGasEstimates(basicEstimates.blockTime))
       .then(retryTransaction(retryId, gasPrice))
@@ -169,7 +177,7 @@ export default class TransactionListItem extends PureComponent {
       primaryTransaction,
       showCancel,
       hasEnoughCancelGas,
-      showRetry,
+      showSpeedUp,
       tokenData,
       transactionGroup,
       rpcPrefs,
@@ -225,7 +233,8 @@ export default class TransactionListItem extends PureComponent {
                 <TransactionListItemDetails
                   transactionGroup={transactionGroup}
                   onRetry={this.handleRetry}
-                  showRetry={showRetry}
+                  showSpeedUp={showSpeedUp}
+                  showRetry={getStatusKey(primaryTransaction) === 'failed'}
                   isEarliestNonce={isEarliestNonce}
                   onCancel={this.handleCancel}
                   showCancel={showCancel}
