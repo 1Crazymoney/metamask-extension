@@ -2,6 +2,7 @@ import { connect } from 'react-redux'
 import SendEther from './send.component'
 import { withRouter } from 'react-router-dom'
 import { compose } from 'recompose'
+import Namicorn from 'namicorn'
 const {
   getSelectedAddress,
 } = require('../../selectors/selectors')
@@ -129,7 +130,6 @@ function mapDispatchToProps (dispatch) {
     updateSendEnsResolution: (namingResolution) => dispatch(updateSendEnsResolution(namingResolution)),
     updateSendEnsResolutionError: (message) => dispatch(updateSendEnsResolutionError(message)),
     updateToNicknameIfNecessary: (to, toNickname, addressBook, network) => {
-      const Namicorn = require('namicorn')
       const namicorn = new Namicorn({blockchain: {ens: {network}, zns: true}})
       if (namicorn.isSupportedDomain(toNickname)) {
         const addressBookEntry = addressBook.find(({ address}) => to === address) || {}
